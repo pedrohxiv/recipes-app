@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { RecipeContext } from '../context/RecipeContext';
 
 function Recipes() {
+  const values = useContext(RecipeContext);
   return (
-    <div>Recipes</div>
+    <div>{values}</div>
   );
 }
 
