@@ -1,15 +1,15 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Drinks from '../components/Drinks';
-import Meals from '../components/Meals';
+// import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import Header from '../components/Header';
+// import { RecipeContext } from '../context/RecipeContext';
 
 function Recipes() {
+  // const values = useContext(RecipeContext);
+  const history = useHistory();
+  const pagePath = history.location.pathname;
   return (
     <div>
-      <Switch>
-        <Route path="/meals" component={ Meals } />
-        <Route path="/drinks" component={ Drinks } />
-      </Switch>
+      <Header title={ pagePath === '/drinks' ? 'Drinks' : 'Meals' } />
     </div>
   );
 }
