@@ -1,10 +1,16 @@
-import React, { useContext } from 'react';
-import { RecipeContext } from '../context/RecipeContext';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Drinks from '../components/Drinks';
+import Meals from '../components/Meals';
 
 function Recipes() {
-  const values = useContext(RecipeContext);
   return (
-    <div>{values}</div>
+    <div>
+      <Switch>
+        <Route path="/meals" component={ Meals } />
+        <Route path="/drinks" component={ Drinks } />
+      </Switch>
+    </div>
   );
 }
 
