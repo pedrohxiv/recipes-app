@@ -1,5 +1,6 @@
 import { createContext, useMemo } from 'react';
 import useMeals from '../hooks/useMeals';
+import useSearchBar from '../hooks/useSearchBar';
 
 export const RecipeContext = createContext();
 
@@ -17,6 +18,8 @@ export function RecipeProvider({ children }) {
     mealsCategory,
     mealsDetails } = useMeals();
 
+  const { filter, handleChange } = useSearchBar();
+
   const values = useMemo(() => ({ getMeals,
     getMealsByFirstLetter,
     getMealsByIngredient,
@@ -29,6 +32,8 @@ export function RecipeProvider({ children }) {
     mealsByCategory,
     mealsCategory,
     mealsDetails,
+    filter,
+    handleChange,
   }), [getMeals, getMealsByFirstLetter,
     getMealsByIngredient,
     getMealsCategory,
@@ -39,7 +44,9 @@ export function RecipeProvider({ children }) {
     mealsByIngredient,
     mealsByCategory,
     mealsCategory,
-    mealsDetails]);
+    mealsDetails,
+    filter,
+    handleChange]);
 
   return (
     <RecipeContext.Provider value={ values }>
