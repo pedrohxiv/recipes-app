@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -66,7 +66,7 @@ export default function FavoriteRecipes() {
                 src={ shareIcon }
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => {
-                  clipboardCopy(`http://localhost:3000/meals/${favoriteRecipe.id}`);
+                  copy(`http://localhost:3000/meals/${favoriteRecipe.id}`);
                   setLinkCopied(true);
                   setTimeout(() => setLinkCopied(false), timeOut);
                 } }
@@ -111,7 +111,7 @@ export default function FavoriteRecipes() {
                 src={ shareIcon }
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => {
-                  clipboardCopy(`http://localhost:3000/drinks/${favoriteRecipe.id}`);
+                  copy(`http://localhost:3000/drinks/${favoriteRecipe.id}`);
                   setLinkCopied(true);
                   setTimeout(() => setLinkCopied(false), timeOut);
                 } }
@@ -159,7 +159,7 @@ export default function FavoriteRecipes() {
                 src={ shareIcon }
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => {
-                  clipboardCopy(`http://localhost:3000/meals/${favoriteRecipe.id}`);
+                  copy(`http://localhost:3000/meals/${favoriteRecipe.id}`);
                   setLinkCopied(true);
                   setTimeout(() => setLinkCopied(false), timeOut);
                 } }
@@ -200,7 +200,7 @@ export default function FavoriteRecipes() {
                 src={ shareIcon }
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => {
-                  clipboardCopy(`http://localhost:3000/drinks/${favoriteRecipe.id}`);
+                  copy(`http://localhost:3000/drinks/${favoriteRecipe.id}`);
                   setLinkCopied(true);
                   setTimeout(() => setLinkCopied(false), timeOut);
                 } }
