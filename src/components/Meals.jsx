@@ -3,11 +3,12 @@ import { useLocation } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeContext';
 import CardRecipe from './CardRecipe';
 import Footer from './Footer';
+import Header from './Header';
 
 function Meals() {
   const { getMeals, meals } = useContext(RecipeContext);
   const location = useLocation();
-
+  console.log(location);
   useEffect(() => {
     if (!meals && location.pathname === '/meals') { getMeals(); }
   }, [meals, getMeals, location]);
@@ -16,6 +17,7 @@ function Meals() {
 
   return (
     <div>
+      <Header title="Meals" />
       {meals && meals.slice(0, Number('12')).map((meal, index) => (
         <CardRecipe
           key={ meal.idMeal }

@@ -23,19 +23,19 @@ function Header(props) {
           alt="Profile icon"
         />
       </button>
-      {(pagePath !== '/profile'
-      && pagePath !== '/done-recipes' && pagePath !== '/favorite-recipes') && (
-        <button
-          onClick={ () => setIsSearchOpen(!isSearchOpen) }
-          data-testid="btn-show-search"
-        >
-          <img
-            data-testid="search-top-btn"
-            src={ searchIcon }
-            alt="Profile icon"
-          />
-        </button>
-      )}
+      {/* {(pagePath !== ('/profile' || '/done-recipes' || '/favorite-recipes'))
+        && ( */}
+      <button
+        onClick={ () => setIsSearchOpen(!isSearchOpen) }
+        data-testid="btn-show-search"
+      >
+        <img
+          data-testid="search-top-btn"
+          src={ searchIcon }
+          alt="Profile icon"
+        />
+      </button>
+      {/* )} */}
       {isSearchOpen && <Search />}
     </div>
   );
