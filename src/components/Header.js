@@ -7,7 +7,7 @@ import Search from './Search';
 function Header(props) {
   const history = useHistory();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const pagePath = history.location.pathname;
+  // const pagePath = history.location.pathname;
   // const pagesWithoutSearch = ['/profile', '/done-recipes', '/favorite-recipes'];
   const { title } = props;
   return (
