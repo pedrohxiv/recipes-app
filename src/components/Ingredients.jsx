@@ -9,20 +9,19 @@ function Ingredients() {
       <ul>
         {mealsDetails
           && console.log(mealsDetails
-            .reduce((final, ingredient) => ([...final, ingredient.strIngredient])), [])
-          }
+            .reduce((final, ingredient) => ([...final, ingredient.strIngredient])), [])}
 
-        // mealsDetails[0].map((ingredient, index) => (
-        //   <li data-tesstid={ `${index}-ingredient-name-and-measure` }>
-        //     {ingredient.strIngredient[index]}
-        //   </li>
-        // ))
       </ul>
     </div>
   );
 }
 
 export default Ingredients;
+/* // mealsDetails[0].map((ingredient, index) => (
+//   <li data-tesstid={ `${index}-ingredient-name-and-measure` }>
+//     {ingredient.strIngredient[index]}
+//   </li>
+// )) */
 //   "strIngredient2": "Onion",
 //   "strIngredient3": "Carrots",
 //   "strIngredient4": "Tomato Puree",
