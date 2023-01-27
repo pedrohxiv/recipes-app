@@ -8,9 +8,11 @@ function useSearchBar() {
   const handleChange = ({ target: { value, name } }) => {
     setFilter((oldFilter) => ({ ...oldFilter, [name]: value }));
   };
+  const handleClickFilters = () => {};
   return {
     filter,
     handleChange,
+    handleClickFilters,
   };
 }
 

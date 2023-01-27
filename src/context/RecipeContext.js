@@ -18,7 +18,7 @@ export function RecipeProvider({ children }) {
     mealsCategory,
     mealsDetails } = useMeals();
 
-  const { filter, handleChange } = useSearchBar();
+  const { filter, handleChange, handleClickFilters } = useSearchBar();
 
   const values = useMemo(() => ({ getMeals,
     getMealsByFirstLetter,
@@ -34,6 +34,7 @@ export function RecipeProvider({ children }) {
     mealsDetails,
     filter,
     handleChange,
+    handleClickFilters,
   }), [getMeals, getMealsByFirstLetter,
     getMealsByIngredient,
     getMealsCategory,
@@ -46,7 +47,8 @@ export function RecipeProvider({ children }) {
     mealsCategory,
     mealsDetails,
     filter,
-    handleChange]);
+    handleChange,
+    handleClickFilters]);
 
   return (
     <RecipeContext.Provider value={ values }>

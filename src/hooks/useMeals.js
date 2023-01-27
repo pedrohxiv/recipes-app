@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useMeals = () => {
   const [meals, setMeals] = useState(null);
@@ -46,6 +46,16 @@ const useMeals = () => {
     const data = await response.json();
     setMealsDetails(data);
   };
+
+  useEffect(() => {
+    getMeals();
+    getMealsByFirstLetter();
+    getMealsByIngredient();
+    getMealsByCategory();
+    getMealsCategory();
+    getMealDetails();
+  }, []);
+
   return { getMeals,
     getMealsByFirstLetter,
     getMealsByIngredient,

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { RecipeContext } from '../context/RecipeContext';
 
 function Search() {
-  const { filter, handleChange } = useContext(RecipeContext);
+  const { filter, handleChange, handleClickFilters } = useContext(RecipeContext);
   return (
     <div>
       <div>
@@ -52,6 +52,7 @@ function Search() {
           </label>
           <button
             data-testid="exec-search-btn"
+            onClick={ handleClickFilters }
           >
             Search
           </button>
