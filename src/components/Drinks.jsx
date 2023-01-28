@@ -4,6 +4,7 @@ import Footer from './Footer';
 import { RecipeContext } from '../context/RecipeContext';
 import CardRecipe from './CardRecipe';
 import Header from './Header';
+import CategoryFilter from './CategoryFilter';
 
 function Drinks() {
   const { getDrinks, drinks } = useContext(RecipeContext);
@@ -18,6 +19,7 @@ function Drinks() {
   return (
     <div>
       <Header title="Drinks" />
+      <CategoryFilter />
       {drinks && drinks.slice(0, Number('12')).map((drink, index) => (
         <CardRecipe
           key={ drink.idDrink }

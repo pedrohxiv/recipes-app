@@ -13,13 +13,20 @@ function DrinkDetail() {
   }, [drinksDetails, getDrinksDetails, id]);
   return (
     <div>
-      Oi
-      {drinksDetails && (
-        <div>
-          <Instructions howTo={ drinksDetails[0].strInstructions } />
-          <Ingredients />
+      {drinksDetails && drinksDetails.map((drink) => (
+        <div key={ drink.idDrink }>
+          <img
+            src={ drink.strDrinkThumb }
+            alt={ drink.strDrink }
+            data-testid="recipe-photo"
+            height="200px"
+          />
+          <h4 data-testid="recipe-title">{drink.strDrink}</h4>
+          <h6 data-testid="recipe-category">{drink.strAlcoholic}</h6>
+          <Instructions howTo={ drink.strInstructions } />
+          <Ingredients recipe={ drinksDetails } />
         </div>
-      )}
+      ))}
     </div>
   );
 }

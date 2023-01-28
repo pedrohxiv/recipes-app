@@ -1,56 +1,41 @@
-import React, { useContext } from 'react';
-import { RecipeContext } from '../context/RecipeContext';
+import React, { useEffect, useState } from 'react';
 
-function Ingredients() {
-  const { mealsDetails } = useContext(RecipeContext);
+function Ingredients({ recipe }) {
+  const [list, setList] = useState();
+  // iteration for search compatibles ingredients and measures
+  const searchInMeal = (str) => Object.entries(recipe[0])
+    .filter((key) => key[0].includes(str));
+  //   reduce((final, [key, value]) => ((key.includes(str)
+  // && value.trim().length !== 0)
+  //     ? [...final, [key, value.trimEnd()]] : final), []);
+
+  // iteration to join evey ingredient with own measure
+  const final = searchInMeal('strIng')
+    .reduce((finalRecipe, instruction, index) => ([...finalRecipe,
+      [instruction[1], searchInMeal('strMeas')[index][1]]]), []);
+
+  useEffect(() => {
+    if (recipe) {
+      console.log(final);
+      setList(final);
+    }
+  }, []);
+
   return (
     <div>
       <p>Ingredients</p>
-      <ul>
-        {mealsDetails
-          && console.log(mealsDetails
-            .reduce((final, ingredient) => ([...final, ingredient.strIngredient])), [])}
+      {(recipe && list) && list.map(([ingredient, measure], index) => (
+        <span
+          type="checkbox"
+          data-testid={ `${index}-ingredient-name-and-measure` }
+          key={ `${index} ${ingredient}` }
+        >
+          {`${ingredient} ${measure}`}
+        </span>
 
-      </ul>
+      ))}
     </div>
   );
 }
-
+Ingredients.propTypes = {}.isRequired;
 export default Ingredients;
-/* // mealsDetails[0].map((ingredient, index) => (
-//   <li data-tesstid={ `${index}-ingredient-name-and-measure` }>
-//     {ingredient.strIngredient[index]}
-//   </li>
-// )) */
-//   "strIngredient2": "Onion",
-//   "strIngredient3": "Carrots",
-//   "strIngredient4": "Tomato Puree",
-//   "strIngredient5": "Cumin",
-//   "strIngredient6": "Paprika",
-//   "strIngredient7": "Mint",
-//   "strIngredient8": "Thyme",
-//   "strIngredient9": "Black Pepper",
-//   "strIngredient10": "Red Pepper Flakes",
-//   "strIngredient11": "Vegetable Stock",
-//   "strIngredient12": "Water",
-//   "strIngredient13": "Sea Salt",
-//   "strIngredient14": "",
-//   "strIngredient15": "",
-//   "strIngredient16": "",
-//   "strIngredient17": "",
-//   "strIngredient18": "",
-//   "strIngredient19": "",
-//   "strIngredient20": "",
-//   "strMeasure1": "1 cup ",
-//   "strMeasure2": "1 large",
-//   "strMeasure3": "1 large",
-//   "strMeasure4": "1 tbs",
-//   "strMeasure5": "2 tsp",
-//   "strMeasure6": "1 tsp ",
-//   "strMeasure7": "1/2 tsp",
-//   "strMeasure8": "1/2 tsp",
-//   "strMeasure9": "1/4 tsp",
-//   "strMeasure10": "1/4 tsp",
-//   "strMeasure11": "4 cups ",
-//   "strMeasure12": "1 cup ",
-//   "strMeasure13": "Pinch",

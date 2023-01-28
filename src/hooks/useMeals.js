@@ -5,7 +5,6 @@ const useMeals = () => {
   const [mealsFirstLetter, setMealsFirstLetter] = useState(null);
   const [mealsByIngredient, setMealsByIngredient] = useState(null);
   const [mealsCategory, setMealsCategory] = useState(null);
-  const [mealsByCategory, setMealsByCategory] = useState(null);
   const [mealsDetails, setMealsDetails] = useState(null);
 
   const getMeals = async (name = '') => {
@@ -20,25 +19,25 @@ const useMeals = () => {
     }
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
     const data = await response.json();
-    setMealsFirstLetter(data);
+    setMealsFirstLetter(data.meals);
   };
 
   const getMealsByIngredient = async (ingredient) => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const data = await response.json();
-    setMealsByIngredient(data);
+    setMealsByIngredient(data.meals);
   };
 
   const getMealsByCategory = async (category) => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
     const data = await response.json();
-    setMealsByCategory(data);
+    setMeals(data.meals);
   };
 
   const getMealsCategory = async () => {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     const data = await response.json();
-    setMealsCategory(data);
+    setMealsCategory(data.meals);
   };
 
   const getMealsDetails = async (id) => {
@@ -55,7 +54,6 @@ const useMeals = () => {
     meals,
     mealsFirstLetter,
     mealsByIngredient,
-    mealsByCategory,
     mealsCategory,
     mealsDetails,
   };
