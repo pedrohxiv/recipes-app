@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeContext';
 import Ingredients from './Ingredients';
 import Instructions from './Instructions';
+import Recommendation from './Recommendation';
 
 function DrinkDetail() {
   const { drinksDetails, getDrinksDetails } = useContext(RecipeContext);
@@ -25,6 +26,7 @@ function DrinkDetail() {
           <h6 data-testid="recipe-category">{drink.strAlcoholic}</h6>
           <Instructions howTo={ drink.strInstructions } />
           <Ingredients recipe={ drinksDetails } />
+          <Recommendation />
         </div>
       ))}
     </div>

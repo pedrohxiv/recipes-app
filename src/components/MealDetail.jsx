@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeContext';
 import Ingredients from './Ingredients';
 import Instructions from './Instructions';
+import Recommendation from './Recommendation';
 
 function MealDetail() {
   const { mealsDetails, getMealsDetails } = useContext(RecipeContext);
@@ -33,6 +34,7 @@ function MealDetail() {
             allowFullScreen
             src={ `https://www.youtube.com/embed/${meal.strYoutube.match(/(?<==).*/)}` }
           />
+          <Recommendation />
         </div>
       ))}
     </div>
