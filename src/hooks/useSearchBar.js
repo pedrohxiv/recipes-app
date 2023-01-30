@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import useDrinks from './useDrinks';
+import { useLocation } from 'react-router-dom';
 import useMeals from './useMeals';
-// import { useLocation } from 'react-router-dom';
 
 function useSearchBar() {
   const [filter, setFilter] = useState({
