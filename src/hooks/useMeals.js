@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const useMeals = () => {
   const [meals, setMeals] = useState(null);
-  const [mealsFirstLetter, setMealsFirstLetter] = useState(null);
-  const [mealsByIngredient, setMealsByIngredient] = useState(null);
   const [mealsCategory, setMealsCategory] = useState(null);
   const [mealsByCategory, setMealsByCategory] = useState(null);
   const [mealsDetails, setMealsDetails] = useState(null);
 
-  const getMeals = async (name = '') => {
+  const getMealsByName = async (name = '') => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
     const data = await response.json();
     setMeals(data.meals);
@@ -20,13 +18,13 @@ const useMeals = () => {
     }
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
     const data = await response.json();
-    setMealsFirstLetter(data);
+    setMeals(data);
   };
 
   const getMealsByIngredient = async (ingredient) => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const data = await response.json();
-    setMealsByIngredient(data);
+    setMeals(data);
   };
 
   const getMealsByCategory = async (category) => {
@@ -47,24 +45,13 @@ const useMeals = () => {
     setMealsDetails(data);
   };
 
-  useEffect(() => {
-    getMeals();
-    getMealsByFirstLetter();
-    getMealsByIngredient();
-    getMealsByCategory();
-    getMealsCategory();
-    getMealDetails();
-  }, []);
-
-  return { getMeals,
+  return { getMealsByName,
     getMealsByFirstLetter,
     getMealsByIngredient,
     getMealsCategory,
     getMealsByCategory,
     getMealDetails,
     meals,
-    mealsFirstLetter,
-    mealsByIngredient,
     mealsByCategory,
     mealsCategory,
     mealsDetails,
