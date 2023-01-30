@@ -15,7 +15,7 @@ function ButtonStart() {
       return history.push(`/drinks/${id}/in-progress`);
     }
     if (local.pathname.includes('meals')) {
-      inProgressMeals(id, local);
+      // inProgressMeals(id, local);
       return history.push(`/meals/${id}/in-progress`);
     }
   };

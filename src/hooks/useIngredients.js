@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 const useIngredients = () => {
   const [list, setList] = useState();
+  const [checkedItems, setCheckedItems] = useState();
 
   const createIngredients = (recipe) => {
     // iteration for search compatibles ingredients and measures
@@ -17,10 +18,13 @@ const useIngredients = () => {
             ? '' : searchInMeal('strMeas')[index],
         ],
       ]), []);
+    const checkVersion = final.reduce((checks, [ingredient, measure]) => ({
+      ...checks, [`${ingredient} ${measure}`]: false }), {});
+    setCheckedItems(checkVersion);
     return setList(final);
   };
 
-  return { list, createIngredients };
+  return { list, createIngredients, checkedItems, setCheckedItems };
 };
 
 export default useIngredients;

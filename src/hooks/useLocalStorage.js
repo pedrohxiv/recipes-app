@@ -6,6 +6,7 @@ const useLocalStorage = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { pathname } = useLocation();
 
+  // Favorites
   const getLocalResponseFavorite = (id) => {
     const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'))
     || [];
@@ -16,6 +17,7 @@ const useLocalStorage = () => {
   const saveFavoriteRecipe = (drink, meal) => {
     const existFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     setIsFavorite(true);
+
     return localStorage.setItem('favoriteRecipes', JSON.stringify([...existFavorite, {
       id: (drink ? drink.idDrink : meal.idMeal),
       type: (drink ? 'drink' : 'meal'),
@@ -35,6 +37,7 @@ const useLocalStorage = () => {
     return setIsFavorite(false);
   };
 
+  // In Progress
   const getLocalResponseProgress = (id) => {
     const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))
     || { drinks: {}, meals: {} };
@@ -42,15 +45,16 @@ const useLocalStorage = () => {
       return Object.keys(inProgressRecipe.drinks).some((recipeId) => recipeId === id)
         ? setInProgress(true) : setInProgress(false);
     }
-    if (Object.keys(inProgressRecipe.meals).some((recipeId) => recipeId === id)) {
-      return setInProgress(true);
+    if (pathname.includes('meals')) {
+      return Object.keys(inProgressRecipe.meals).some((recipeId) => recipeId === id)
+        ? setInProgress(true) : setInProgress(false);
     }
   };
 
   const inProgressDrinks = (id, local) => {
     const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))
     || { drinks: {}, meals: {} };
-    inProgressRecipe.drinks = { ...inProgressRecipe.drinks, [id]: [...local.pathname] };
+    inProgressRecipe.drinks = { ...inProgressRecipe.drinks, [id]: [local] };
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipe));
     return setInProgress(true);
   };
@@ -58,9 +62,17 @@ const useLocalStorage = () => {
   const inProgressMeals = (id, local) => {
     const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))
     || { drinks: {}, meals: {} };
-    inProgressRecipe.meals = { ...inProgressRecipe.meals, [id]: [...local.pathname] };
+    inProgressRecipe.meals = { ...inProgressRecipe.meals, [id]: [local] };
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipe));
     return setInProgress(true);
+  };
+
+  const loadProgressMeals = (id) => {
+    const progress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const findProgress = progress.meals[id][0];
+    // .find((recipeId) => recipeId === `${id}`);
+    console.log(findProgress);
+    return findProgress;
   };
 
   return { inProgressMeals,
@@ -70,6 +82,7 @@ const useLocalStorage = () => {
     setInProgress,
     getLocalResponseProgress,
     getLocalResponseFavorite,
+    loadProgressMeals,
     saveFavoriteRecipe,
     removeFavoriteRecipe };
 };
