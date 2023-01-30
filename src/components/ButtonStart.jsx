@@ -3,19 +3,16 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 function ButtonStart() {
-  const { inProgressDrinks, inProgressMeals,
-    inProgress, getLocalResponseProgress } = useLocalStorage();
+  const { inProgress, getLocalResponseProgress } = useLocalStorage();
   const history = useHistory();
   const local = useLocation();
   const { id } = useParams();
 
   const handleProgress = () => {
     if (local.pathname.includes('drinks')) {
-      inProgressDrinks(id, local);
       return history.push(`/drinks/${id}/in-progress`);
     }
     if (local.pathname.includes('meals')) {
-      // inProgressMeals(id, local);
       return history.push(`/meals/${id}/in-progress`);
     }
   };
