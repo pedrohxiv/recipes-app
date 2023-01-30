@@ -7,11 +7,11 @@ export const RecipeContext = createContext();
 export function RecipeProvider({ children }) {
   const { getMeals, getMealsByFirstLetter, getMealsByIngredient, getMealsCategory,
     getMealsByCategory, getMealsDetails, meals, mealsFirstLetter, mealsByIngredient,
-    mealsByCategory, mealsCategory, mealsDetails } = useMeals();
+    mealsCategory, mealsDetails } = useMeals();
 
   const { getDrinks, getDrinksByFirstLetter, getDrinksByCategory, getDrinksDetails,
     getDrinksByIngredient, getDrinksCategory, drinks, drinksFirstLetter,
-    drinksByCategory, drinksByIngredient, drinksCategory, drinksDetails } = useDrinks();
+    drinksByIngredient, drinksCategory, drinksDetails } = useDrinks();
 
   const values = useMemo(() => ({ getMeals,
     getMealsByFirstLetter,
@@ -22,7 +22,6 @@ export function RecipeProvider({ children }) {
     meals,
     mealsFirstLetter,
     mealsByIngredient,
-    mealsByCategory,
     mealsCategory,
     mealsDetails,
     getDrinks,
@@ -33,15 +32,14 @@ export function RecipeProvider({ children }) {
     getDrinksCategory,
     drinks,
     drinksFirstLetter,
-    drinksByCategory,
     drinksByIngredient,
     drinksCategory,
     drinksDetails,
   }), [getMeals, getMealsByFirstLetter, getMealsByIngredient, getMealsCategory,
     getMealsByCategory, getMealsDetails, meals, mealsFirstLetter,
-    mealsByIngredient, mealsByCategory, mealsCategory, mealsDetails, getDrinks,
+    mealsByIngredient, mealsCategory, mealsDetails, getDrinks,
     getDrinksByFirstLetter, getDrinksByCategory, getDrinksDetails, getDrinksByIngredient,
-    getDrinksCategory, drinks, drinksFirstLetter, drinksByCategory, drinksByIngredient,
+    getDrinksCategory, drinks, drinksFirstLetter, drinksByIngredient,
     drinksCategory, drinksDetails]);
 
   return (

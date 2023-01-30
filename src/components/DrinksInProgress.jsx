@@ -1,23 +1,19 @@
 import React, { useContext, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeContext';
-import ButtonStart from './ButtonStart';
 import FavoriteButton from './FavoriteButton';
-import Ingredients from './Ingredients';
+import IngredientsInProgress from './IngredientsInProgress';
 import Instructions from './Instructions';
-import Recommendation from './Recommendation';
 import ShareButton from './ShareButton';
 
-function DrinkDetail() {
-  const { drinksDetails, getDrinksDetails } = useContext(RecipeContext);
+function DrinksInProgress() {
+  const { getDrinksDetails, drinksDetails } = useContext(RecipeContext);
   const { id } = useParams();
-  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!drinksDetails) { getDrinksDetails(id); }
-  }, [drinksDetails, getDrinksDetails, id]);
+  }, [drinksDetails]);
 
-  if (pathname !== `/drinks/${id}`) return;
   return (
     <div>
       {drinksDetails && drinksDetails.map((drink) => (
@@ -31,15 +27,14 @@ function DrinkDetail() {
             height="200px"
           />
           <h4 data-testid="recipe-title">{drink.strDrink}</h4>
-          <h6 data-testid="recipe-category">{drink.strAlcoholic}</h6>
+          <h6 data-testid="recipe-category">{drink.strCategory}</h6>
+          <IngredientsInProgress recipe={ drinksDetails } />
           <Instructions howTo={ drink.strInstructions } />
-          <Ingredients recipe={ drinksDetails } />
-          <Recommendation />
-          <ButtonStart />
+          <button data-testid="finish-recipe-btn">Finish Recipe</button>
         </div>
       ))}
     </div>
   );
 }
 
-export default DrinkDetail;
+export default DrinksInProgress;

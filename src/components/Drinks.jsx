@@ -4,20 +4,22 @@ import Footer from './Footer';
 import { RecipeContext } from '../context/RecipeContext';
 import CardRecipe from './CardRecipe';
 import Header from './Header';
+import CategoryFilter from './CategoryFilter';
 
 function Drinks() {
   const { getDrinks, drinks } = useContext(RecipeContext);
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!drinks && location.pathname === '/drinks') { getDrinks(); }
-  }, [drinks, getDrinks, location]);
+    if (!drinks && pathname === '/drinks') { getDrinks(); }
+  }, [drinks, getDrinks, pathname]);
 
-  if (location.pathname !== '/drinks') return;
+  if (pathname !== '/drinks') return;
 
   return (
     <div>
       <Header title="Drinks" />
+      <CategoryFilter />
       {drinks && drinks.slice(0, Number('12')).map((drink, index) => (
         <CardRecipe
           key={ drink.idDrink }

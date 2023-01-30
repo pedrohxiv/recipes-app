@@ -4,12 +4,11 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Search from './Search';
 
-function Header(props) {
+function Header({ title }) {
   const history = useHistory();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  // const pagePath = history.location.pathname;
-  // const pagesWithoutSearch = ['/profile', '/done-recipes', '/favorite-recipes'];
-  const { title } = props;
+  const { pathname } = history.location;
+  const pagesWithoutSearch = ['/profile', '/done-recipes', '/favorite-recipes'];
   return (
     <div>
       <h1 data-testid="page-title">{title}</h1>
@@ -23,19 +22,19 @@ function Header(props) {
           alt="Profile icon"
         />
       </button>
-      {/* {(pagePath !== ('/profile' || '/done-recipes' || '/favorite-recipes'))
-        && ( */}
-      <button
-        onClick={ () => setIsSearchOpen(!isSearchOpen) }
-        data-testid="btn-show-search"
-      >
-        <img
-          data-testid="search-top-btn"
-          src={ searchIcon }
-          alt="Profile icon"
-        />
-      </button>
-      {/* )} */}
+      {!pagesWithoutSearch.includes(pathname)
+        && (
+          <button
+            onClick={ () => setIsSearchOpen(!isSearchOpen) }
+            data-testid="btn-show-search"
+          >
+            <img
+              data-testid="search-top-btn"
+              src={ searchIcon }
+              alt="Search icon"
+            />
+          </button>
+        )}
       {isSearchOpen && <Search />}
     </div>
   );
