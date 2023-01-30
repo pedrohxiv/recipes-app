@@ -6,7 +6,7 @@ import useSearchBar from '../hooks/useSearchBar';
 export const RecipeContext = createContext();
 
 export function RecipeProvider({ children }) {
-  const { getMeals, getMealsByFirstLetter, getMealsByIngredient, getMealsCategory,
+  const { getMealsByName, getMealsByFirstLetter, getMealsByIngredient, getMealsCategory,
     getMealsByCategory, getMealsDetails, meals, mealsFirstLetter, mealsByIngredient,
     mealsCategory, mealsDetails } = useMeals();
 
@@ -16,7 +16,7 @@ export function RecipeProvider({ children }) {
 
   const { filter, handleChange, handleClickFilters } = useSearchBar();
 
-  const values = useMemo(() => ({ getMeals,
+  const values = useMemo(() => ({
     getMealsByFirstLetter,
     getMealsByIngredient,
     getMealsCategory,
@@ -41,7 +41,8 @@ export function RecipeProvider({ children }) {
     filter,
     handleChange,
     handleClickFilters,
-  }), [getMeals, getMealsByFirstLetter, getMealsByIngredient, getMealsCategory,
+    getMealsByName,
+  }), [getMealsByFirstLetter, getMealsByIngredient, getMealsCategory,
     getMealsByCategory, getMealsDetails, meals, mealsFirstLetter,
     mealsByIngredient, mealsCategory, mealsDetails, getDrinks,
     getDrinksByFirstLetter, getDrinksByCategory, getDrinksDetails, getDrinksByIngredient,
@@ -49,7 +50,7 @@ export function RecipeProvider({ children }) {
     drinksCategory, drinksDetails,
     filter,
     handleChange,
-    handleClickFilters]);
+    handleClickFilters, getMealsByName]);
 
   return (
     <RecipeContext.Provider value={ values }>

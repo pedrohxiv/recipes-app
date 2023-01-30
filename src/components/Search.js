@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeContext';
+import useSearchBar from '../hooks/useSearchBar';
 
 function Search() {
-  const { filter, handleChange, handleClickFilters } = useContext(RecipeContext);
+  const { filter, handleChange } = useContext(RecipeContext);
+  const { handleClickDrinks, handleClickMeals } = useSearchBar();
+  const { pathname } = useLocation();
   return (
     <div>
       <div>
@@ -52,7 +56,8 @@ function Search() {
           </label>
           <button
             data-testid="exec-search-btn"
-            onClick={ handleClickFilters }
+            type="button"
+            onClick={ handleClickMeals }
           >
             Search
           </button>

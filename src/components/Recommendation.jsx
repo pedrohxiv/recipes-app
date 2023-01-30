@@ -3,14 +3,14 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeContext';
 
 function Recommendation() {
-  const { getDrinks, drinks, getMeals, meals } = useContext(RecipeContext);
+  const { getDrinks, drinks, getMealsByName, meals } = useContext(RecipeContext);
   const { pathname } = useLocation();
   const { id } = useParams();
 
   useEffect(() => {
     if (!meals || !drinks) {
       getDrinks();
-      getMeals();
+      getMealsByName();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meals, drinks]);

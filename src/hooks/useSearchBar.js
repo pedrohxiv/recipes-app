@@ -1,6 +1,5 @@
-import { useState } from 'react';
-// import useDrinks from './useDrinks';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import useDrinks from './useDrinks';
 import useMeals from './useMeals';
 
 function useSearchBar() {
@@ -8,35 +7,56 @@ function useSearchBar() {
     search: '',
     radioFilter: '',
   });
-  const { pathname } = useLocation();
   const {
     getMealsByIngredient,
     getMealsByName,
     getMealsByFirstLetter } = useMeals();
 
-  // const {} = useDrinks();
+  const {
+    getDrinksByIngredient,
+    getDrinksByName,
+    getDrinksByFirstLetter,
+  } = useDrinks();
 
   const handleChange = ({ target: { value, name } }) => {
     setFilter((oldFilter) => ({ ...oldFilter, [name]: value }));
   };
 
-  const handleClickFilters = () => {
-    switch (pathname === '/meals') {
-    case filter.radioFilter === 'ingredient':
+  const handleClickMeals = () => {
+    switch (filter.radioFilter) {
+    case 'ingredient':
       return getMealsByIngredient(filter.search);
-    case filter.radioFilter === 'name':
+    case 'name':
       return getMealsByName(filter.search);
-    case filter.radioFilter === 'first letter':
+    case 'first letter':
       return getMealsByFirstLetter(filter.search);
     default:
       return undefined;
     }
   };
 
+  const handleClickDrinks = () => {
+    switch (filter.radioFilter) {
+    case 'ingredient':
+      return getDrinksByIngredient(filter.search);
+    case 'name':
+      return getDrinksByName(filter.search);
+    case 'first letter':
+      return getDrinksByFirstLetter(filter.search);
+    default:
+      return undefined;
+    }
+  };
+
+  useEffect(() => {
+    handleClickMeals();
+  }, [filter]);
+
   return {
     filter,
     handleChange,
-    handleClickFilters,
+    handleClickMeals,
+    handleClickDrinks,
   };
 }
 

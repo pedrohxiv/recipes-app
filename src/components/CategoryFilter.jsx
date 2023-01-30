@@ -5,7 +5,7 @@ import { RecipeContext } from '../context/RecipeContext';
 function CategoryFilter() {
   const { drinksCategory, getDrinksCategory, mealsCategory, getMealsCategory,
     getDrinksByCategory, getMealsByCategory,
-    getMeals, getDrinks } = useContext(RecipeContext);
+    getMealsByName, getDrinks } = useContext(RecipeContext);
   const { pathname } = useLocation();
   const [toggle, setToggle] = useState('');
 
@@ -15,7 +15,7 @@ function CategoryFilter() {
     if (toggle === value) {
       setToggle('');
       return pathname === '/meals'
-        ? getMeals() : getDrinks();
+        ? getMealsByName() : getDrinks();
     }
     return pathname === '/meals'
       ? getMealsByCategory(value) : getDrinksByCategory(value);
@@ -32,7 +32,7 @@ function CategoryFilter() {
         type="submit"
         data-testid="All-category-filter"
         onClick={ () => (
-          pathname === '/meals' ? getMeals() : getDrinks()) }
+          pathname === '/meals' ? getMealsByName() : getDrinks()) }
       >
         All
       </button>

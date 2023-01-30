@@ -7,11 +7,11 @@ import Footer from './Footer';
 import Header from './Header';
 
 function Meals() {
-  const { getMeals, meals } = useContext(RecipeContext);
+  const { getMealsByName, meals } = useContext(RecipeContext);
   const { pathname } = useLocation();
   useEffect(() => {
-    if (!meals && pathname === '/meals') { getMeals(); }
-  }, [meals, getMeals, pathname]);
+    if (!meals && pathname === '/meals') { getMealsByName(); }
+  }, [meals, getMealsByName, pathname]);
 
   if (pathname !== '/meals') return;
 
