@@ -1,21 +1,27 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeContext';
+import ButtonStart from './ButtonStart';
+import FavoriteButton from './FavoriteButton';
 import Ingredients from './Ingredients';
 import Instructions from './Instructions';
 import Recommendation from './Recommendation';
+import ShareButton from './ShareButton';
 
 function MealDetail() {
   const { mealsDetails, getMealsDetails } = useContext(RecipeContext);
   const { id } = useParams();
-
+  const { pathname } = useLocation();
   useEffect(() => {
     if (!mealsDetails) { getMealsDetails(id); }
   }, [mealsDetails, getMealsDetails, id]);
+  if (pathname !== `/meals/${id}`) return;
   return (
     <div>
       {mealsDetails && mealsDetails.map((meal) => (
         <div key={ meal.idMeal }>
+          <FavoriteButton meal={ meal } />
+          <ShareButton />
           <img
             src={ meal.strMealThumb }
             alt={ meal.strMeal }
@@ -35,6 +41,7 @@ function MealDetail() {
             src={ `https://www.youtube.com/embed/${meal.strYoutube.match(/(?<==).*/)}` }
           />
           <Recommendation />
+          <ButtonStart />
         </div>
       ))}
     </div>

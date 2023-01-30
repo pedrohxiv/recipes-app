@@ -6,13 +6,14 @@ function Recommendation() {
   const { getDrinks, drinks, getMeals, meals } = useContext(RecipeContext);
   const { pathname } = useLocation();
   const { id } = useParams();
-  console.log(pathname === `/drinks/${id}`);
+
   useEffect(() => {
     if (!meals || !drinks) {
       getDrinks();
       getMeals();
     }
   }, [meals, drinks]);
+
   return (
     <div>
       <h3>Recommended</h3>
@@ -35,6 +36,7 @@ function Recommendation() {
           </Link>
         </div>
       ))}
+
       {((pathname === `/meals/${id}`) && drinks)
       && drinks.slice(0, Number('6')).map((drink, index) => (
         <div

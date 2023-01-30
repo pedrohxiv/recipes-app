@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import useIngredients from '../hooks/useIngredients';
 
 function Ingredients({ recipe }) {
-  const [list, setList] = useState();
-  // iteration for search compatibles ingredients and measures
-  const searchInMeal = (str) => Object.entries(recipe[0])
-    .filter((key) => key[0].includes(str));
-  //   reduce((final, [key, value]) => ((key.includes(str)
-  // && value.trim().length !== 0)
-  //     ? [...final, [key, value.trimEnd()]] : final), []);
-
-  // iteration to join evey ingredient with own measure
-  const final = searchInMeal('strIng')
-    .reduce((finalRecipe, instruction, index) => ([...finalRecipe,
-      [instruction[1], searchInMeal('strMeas')[index][1]]]), []);
+  const { list, createIngredients } = useIngredients();
 
   useEffect(() => {
     if (recipe) {
-      console.log(final);
-      setList(final);
+      createIngredients(recipe);
     }
   }, []);
 
