@@ -3,7 +3,6 @@ import { useState } from 'react';
 const useMeals = () => {
   const [meals, setMeals] = useState(null);
   const [mealsCategory, setMealsCategory] = useState(null);
-  const [mealsByCategory, setMealsByCategory] = useState(null);
   const [mealsDetails, setMealsDetails] = useState(null);
 
   const getMealsByName = async (name = '') => {
@@ -30,19 +29,19 @@ const useMeals = () => {
   const getMealsByCategory = async (category) => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
     const data = await response.json();
-    setMealsByCategory(data);
+    setMeals(data.meals);
   };
 
   const getMealsCategory = async () => {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     const data = await response.json();
-    setMealsCategory(data);
+    setMealsCategory(data.meals);
   };
 
-  const getMealDetails = async (id) => {
+  const getMealsDetails = async (id) => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const data = await response.json();
-    setMealsDetails(data);
+    setMealsDetails(data.meals);
   };
 
   return { getMealsByName,
@@ -50,7 +49,7 @@ const useMeals = () => {
     getMealsByIngredient,
     getMealsCategory,
     getMealsByCategory,
-    getMealDetails,
+    getMealsDetails,
     meals,
     mealsByCategory,
     mealsCategory,

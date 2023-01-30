@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
-import { act, screen } from '@testing-library/react';
-import App from '../App';
-import renderWithRouter from './renderWithRouter';
+import { screen } from '@testing-library/react';
+import renderWithRouter from './helpers/renderWithRouter';
+import Profile from '../pages/Profile';
 
 describe('Renderize o componente "Profile"', () => {
   localStorage.setItem('user', '{"email":"email@mail.com"}');
@@ -10,11 +10,7 @@ describe('Renderize o componente "Profile"', () => {
   localStorage.setItem('inProgressRecipes', '{}');
 
   it('Verifica se os elementos da tela de perfil respeita os atributos descritos no protótipo', () => {
-    const { history } = renderWithRouter(<App />);
-
-    act(() => {
-      history.push('/profile');
-    });
+    renderWithRouter(<Profile />);
 
     const profileEmailEl = screen.getByTestId('profile-email');
     expect(profileEmailEl).toBeInTheDocument();
@@ -27,22 +23,14 @@ describe('Renderize o componente "Profile"', () => {
   });
 
   it('Verifica se o e-mail da pessoa usuária está visível na tela', () => {
-    const { history } = renderWithRouter(<App />);
-
-    act(() => {
-      history.push('/profile');
-    });
+    renderWithRouter(<Profile />);
 
     const profileEmailEl = screen.getByTestId('profile-email');
     expect(profileEmailEl).toHaveTextContent('email@mail.com');
   });
 
   it('Verifica se a pessoa usuária que, ao clicar no botão de "Done Recipes", a rota deve mudar para a tela de receitas feitas', () => {
-    const { history } = renderWithRouter(<App />);
-
-    act(() => {
-      history.push('/profile');
-    });
+    const { history } = renderWithRouter(<Profile />);
 
     const profileDoneBtnEl = screen.getByTestId('profile-done-btn');
     userEvent.click(profileDoneBtnEl);
@@ -50,11 +38,7 @@ describe('Renderize o componente "Profile"', () => {
   });
 
   it('Verifica se a pessoa usuária que, ao clicar no botão de "Favorite Recipes", a rota deve mudar para a tela de receitas favoritas', () => {
-    const { history } = renderWithRouter(<App />);
-
-    act(() => {
-      history.push('/profile');
-    });
+    const { history } = renderWithRouter(<Profile />);
 
     const profileFavoriteBtnEl = screen.getByTestId('profile-favorite-btn');
     userEvent.click(profileFavoriteBtnEl);
@@ -62,11 +46,7 @@ describe('Renderize o componente "Profile"', () => {
   });
 
   it('Verifica se a pessoa usuária que, ao clicar no botão de "Logout", o `localStorage` deve ser limpo e a rota deve mudar para a tela de login', () => {
-    const { history } = renderWithRouter(<App />);
-
-    act(() => {
-      history.push('/profile');
-    });
+    const { history } = renderWithRouter(<Profile />);
 
     expect(JSON.parse(localStorage.getItem('user'))).toEqual({ email: 'email@mail.com' });
     expect(localStorage.getItem('doneRecipes')).toEqual('[]');
