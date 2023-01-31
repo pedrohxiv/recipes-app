@@ -4,7 +4,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Search from './Search';
 
-function Header({ title }) {
+function Header({ title = 'meals' }) {
   const history = useHistory();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { pathname } = history.location;

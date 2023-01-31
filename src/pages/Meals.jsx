@@ -7,7 +7,6 @@ import Header from '../components/Header';
 
 function Meals() {
   const { meals } = useMeals();
-  console.log(meals);
   const { pathname } = useLocation();
 
   if (pathname !== '/meals') return;
