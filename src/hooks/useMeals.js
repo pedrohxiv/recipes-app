@@ -1,15 +1,25 @@
-import { useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { RecipeContext } from '../context/RecipeContext';
 
 const useMeals = () => {
-  const [meals, setMeals] = useState(null);
-  const [mealsCategory, setMealsCategory] = useState(null);
-  const [mealsDetails, setMealsDetails] = useState(null);
+  const {
+    setMeals,
+    setMealsCategory,
+    setMealsDetails,
+    meals,
+    mealsCategory,
+    mealsDetails,
+  } = useContext(RecipeContext) || {};
 
   const getMealsByName = async (name = '') => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
     const data = await response.json();
     setMeals(data.meals);
   };
+
+  useEffect(() => {
+    getMealsByName();
+  }, []);
 
   const getMealsByFirstLetter = async (letter) => {
     if (letter.length > 1) {

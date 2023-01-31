@@ -1,11 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { RecipeContext } from '../context/RecipeContext';
+import useDrinks from '../hooks/useDrinks';
+import useMeals from '../hooks/useMeals';
 
 function CategoryFilter() {
-  const { drinksCategory, getDrinksCategory, mealsCategory, getMealsCategory,
-    getDrinksByCategory, getMealsByCategory,
-    getMealsByName, getDrinks } = useContext(RecipeContext);
+  const {
+    drinksCategory,
+    getDrinksCategory,
+    getDrinksByCategory,
+    getDrinks,
+  } = useDrinks();
+
+  const {
+    mealsCategory,
+    getMealsCategory,
+    getMealsByCategory,
+    getMealsByName,
+  } = useMeals();
+
   const { pathname } = useLocation();
   const [toggle, setToggle] = useState('');
 

@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import { RecipeContext } from '../context/RecipeContext';
 import useDrinks from './useDrinks';
 import useMeals from './useMeals';
 
 function useSearchBar() {
-  const [filter, setFilter] = useState({
-    search: '',
-    radioFilter: '',
-  });
+  const { filter, setFilter } = useContext(RecipeContext) || {};
+  const { pathname } = useLocation();
+
   const {
     getMealsByIngredient,
     getMealsByName,
@@ -14,7 +15,7 @@ function useSearchBar() {
 
   const {
     getDrinksByIngredient,
-    getDrinksByName,
+    getDrinks,
     getDrinksByFirstLetter,
   } = useDrinks();
 
@@ -22,41 +23,21 @@ function useSearchBar() {
     setFilter((oldFilter) => ({ ...oldFilter, [name]: value }));
   };
 
-  const handleClickMeals = () => {
-    switch (filter.radioFilter) {
-    case 'ingredient':
-      return getMealsByIngredient(filter.search);
-    case 'name':
-      return getMealsByName(filter.search);
-    case 'first letter':
-      return getMealsByFirstLetter(filter.search);
-    default:
-      return undefined;
-    }
-  };
+  const handleClick = () => {
+    const isMeals = pathname.includes('meals');
+    const cases = {
+      ingredient: isMeals ? getMealsByIngredient : getDrinksByIngredient,
+      name: isMeals ? getMealsByName : getDrinks,
+      'first letter': isMeals ? getMealsByFirstLetter : getDrinksByFirstLetter,
+    };
 
-  const handleClickDrinks = () => {
-    switch (filter.radioFilter) {
-    case 'ingredient':
-      return getDrinksByIngredient(filter.search);
-    case 'name':
-      return getDrinksByName(filter.search);
-    case 'first letter':
-      return getDrinksByFirstLetter(filter.search);
-    default:
-      return undefined;
-    }
+    return cases[filter.radioFilter](filter.search);
   };
-
-  useEffect(() => {
-    handleClickMeals();
-  }, [filter]);
 
   return {
     filter,
     handleChange,
-    handleClickMeals,
-    handleClickDrinks,
+    handleClick,
   };
 }
 

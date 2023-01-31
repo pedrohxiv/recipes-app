@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { RecipeContext } from '../context/RecipeContext';
+import useMeals from '../hooks/useMeals';
 import ButtonStart from './ButtonStart';
 import FavoriteButton from './FavoriteButton';
 import Ingredients from './Ingredients';
@@ -9,7 +9,7 @@ import Recommendation from './Recommendation';
 import ShareButton from './ShareButton';
 
 function MealDetail() {
-  const { mealsDetails, getMealsDetails } = useContext(RecipeContext);
+  const { mealsDetails, getMealsDetails } = useMeals();
   const { id } = useParams();
   const { pathname } = useLocation();
   useEffect(() => {

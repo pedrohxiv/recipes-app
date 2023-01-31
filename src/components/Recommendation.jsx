@@ -1,9 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { RecipeContext } from '../context/RecipeContext';
+import useDrinks from '../hooks/useDrinks';
+import useMeals from '../hooks/useMeals';
 
 function Recommendation() {
-  const { getDrinks, drinks, getMealsByName, meals } = useContext(RecipeContext);
+  const { getDrinks, drinks } = useDrinks();
+  const { getMealsByName, meals } = useMeals();
   const { pathname } = useLocation();
   const { id } = useParams();
 
