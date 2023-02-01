@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import { RecipeProvider } from '../context/RecipeContext';
 
 describe('Testa o componente Search', () => {
+  localStorage.setItem('user', '{"email":"email@mail.com"}');
+
   test('Testa se input search aparece na tela', async () => {
     renderWithRouter(
       <RecipeProvider>
@@ -26,5 +28,10 @@ describe('Testa o componente Search', () => {
     const btnProfile = screen.getByTestId('btn-profile');
     userEvent.click(btnProfile);
     expect(history.location.pathname).toBe('/profile');
+  });
+  test('Testa se o botão profile', async () => {
+    renderWithRouter(<Header />);
+
+    expect(screen.getByTestId('page-title').innerHTML).toBe('Meals');
   });
 });
