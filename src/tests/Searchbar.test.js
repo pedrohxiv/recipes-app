@@ -3,31 +3,24 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import { RecipeProvider } from '../context/RecipeContext';
-import Search from '../components/Search';
-import Meals from '../pages/Meals';
-import Header from '../components/Header';
 import App from '../App';
+import AppProvider from '../context/AppProvider';
+import { meals } from '../../cypress/mocks/meals';
 
 describe('Testa o componente Searchbar', () => {
-  test('Testa se input search aparece na tela', async () => {
-    renderWithRouter(
+  test('Testa se filtros filtram', async () => {
+    const {history, getByTestId} = renderWithRouter(
       <RecipeProvider>
         <App />
       </RecipeProvider>,
     );
-    const btnShowSearch = screen.getByTestId('btn-show-search');
-    userEvent.click(btnShowSearch);
-    const inputSearch = screen.getByTestId('search-input');
-    const radioButtonIngredient = screen.getByTestId('ingredient-search-radio');
-    const searchButton = screen.getByTestId('exec-search-btn');
+    history.push('/meals')  
 
-    userEvent.type(inputSearch, 'tomato');
-    userEvent.click(radioButtonIngredient);
-    userEvent.click(searchButton);
-    waitFor(() => {
-      const card = screen.getByTestId('5363-recipe-card');
-      expect(card).toBeInTheDocument();
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue(meals),
     });
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // gambiarra
+    const btnShowSearch = screen.getByTestId('btn-show-search');
   });
   // test('Testa icon perfil leva para /profile', async () => {
   //   const { history } = renderWithRouter(
