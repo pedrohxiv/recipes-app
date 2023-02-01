@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import useMeals from '../hooks/useMeals';
 import CardRecipe from '../components/CardRecipe';
 import CategoryFilter from '../components/CategoryFilter';
@@ -8,9 +8,13 @@ import Header from '../components/Header';
 function Meals() {
   const { meals } = useMeals();
   const { pathname } = useLocation();
+  const history = useHistory();
 
   if (pathname !== '/meals') return;
 
+  if (meals && meals.length === 1) {
+    history.push(`/meals/${meals[0].idMeal}`);
+  }
   return (
     <div>
       <Header title="Meals" />
