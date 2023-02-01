@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Header from '../components/Header';
 
 export default function FavoriteRecipes() {
   const [favoriteRecipes, setfavoriteRecipes] = useState(
-    JSON.parse(localStorage.getItem('favoriteRecipes')),
+    JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
   );
   const [filter, setFilter] = useState('all');
   const [linkCopied, setLinkCopied] = useState(false);
@@ -22,6 +23,7 @@ export default function FavoriteRecipes() {
 
   return (
     <>
+      <Header title="Favorite Recipes" />
       <button
         data-testid="filter-by-meal-btn"
         onClick={ () => setFilter('meal') }

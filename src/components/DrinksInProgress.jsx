@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { RecipeContext } from '../context/RecipeContext';
 import FavoriteButton from './FavoriteButton';
 import IngredientsInProgress from './IngredientsInProgress';
 import Instructions from './Instructions';
 import ShareButton from './ShareButton';
 
 function DrinksInProgress() {
-  const { getDrinksDetails, drinksDetails } = useContext(RecipeContext);
+  const { getDrinksDetails, drinksDetails } = useDrinks();
   const { id } = useParams();
 
   useEffect(() => {

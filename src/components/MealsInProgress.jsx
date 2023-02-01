@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { RecipeContext } from '../context/RecipeContext';
+import useMeals from '../hooks/useMeals';
 import FavoriteButton from './FavoriteButton';
 import IngredientsInProgress from './IngredientsInProgress';
 import Instructions from './Instructions';
 import ShareButton from './ShareButton';
 
 function MealsInProgress() {
-  const { getMealsDetails, mealsDetails } = useContext(RecipeContext);
+  const { getMealsDetails, mealsDetails } = useMeals();
   const { id } = useParams();
 
   useEffect(() => {

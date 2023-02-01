@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { RecipeContext } from '../context/RecipeContext';
 
 const useDrinks = () => {
-  const [drinks, setDrinks] = useState(null);
-  const [drinksFirstLetter, setDrinksFirstLetter] = useState(null);
-  const [drinksByIngredient, setDrinksByIngredient] = useState(null);
-  const [drinksCategory, setDrinksCategory] = useState(null);
-  const [drinksDetails, setDrinksDetails] = useState(null);
+  const {
+    setDrinks,
+    setDrinksFirstLetter,
+    setDrinksByIngredient,
+    setDrinksCategory,
+    setDrinksDetails,
+    drinks,
+    drinksFirstLetter,
+    drinksByIngredient,
+    drinksCategory,
+    drinksDetails,
+  } = useContext(RecipeContext) || {};
+
   const getDrinks = async (name = '') => {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
     const data = await response.json();

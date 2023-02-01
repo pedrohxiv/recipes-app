@@ -2,15 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import Header from '../components/Header';
 
 export default function DoneRecipes() {
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const [filter, setFilter] = useState('all');
   const [linkCopied, setLinkCopied] = useState(false);
   const timeOut = 1000;
-
+  console.log(doneRecipes);
   return (
     <>
+      <Header title="Done Recipes" />
       <button
         data-testid="filter-by-meal-btn"
         onClick={ () => setFilter('meal') }

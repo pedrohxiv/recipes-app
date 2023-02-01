@@ -6,7 +6,8 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
-import Recipes from './pages/Recipes';
+import Meals from './pages/Meals';
+import Drinks from './pages/Drinks';
 import RecipeInProgress from './pages/RecipeInProgress';
 import AppProvider from './context/AppProvider';
 import { RecipeProvider } from './context/RecipeContext';
@@ -26,8 +27,8 @@ function App() {
             <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
             <Route path="/meals/:id" component={ RecipeDetails } />
             <Route path="/drinks/:id" component={ RecipeDetails } />
-            <Route path="/meals" component={ Recipes } />
-            <Route path="/drinks" component={ Recipes } />
+            <Route path="/meals" component={ Meals } />
+            <Route path="/drinks" component={ Drinks } />
           </Switch>
         </RecipeProvider>
       </AppProvider>

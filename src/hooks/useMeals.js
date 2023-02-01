@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { RecipeContext } from '../context/RecipeContext';
 
 const useMeals = () => {
-  const [meals, setMeals] = useState(null);
-  const [mealsFirstLetter, setMealsFirstLetter] = useState(null);
-  const [mealsByIngredient, setMealsByIngredient] = useState(null);
-  const [mealsCategory, setMealsCategory] = useState(null);
-  const [mealsDetails, setMealsDetails] = useState(null);
+  const {
+    setMeals,
+    setMealsCategory,
+    setMealsDetails,
+    meals,
+    mealsCategory,
+    mealsDetails,
+  } = useContext(RecipeContext) || {};
 
-  const getMeals = async (name = '') => {
+  const getMealsByName = async (name = '') => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
     const data = await response.json();
     setMeals(data.meals);
   };
+
+  useEffect(() => {
+    getMealsByName();
+  }, []);
 
   const getMealsByFirstLetter = async (letter) => {
     if (letter.length > 1) {
@@ -19,13 +27,13 @@ const useMeals = () => {
     }
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
     const data = await response.json();
-    setMealsFirstLetter(data.meals);
+    setMeals(data.meals);
   };
 
   const getMealsByIngredient = async (ingredient) => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const data = await response.json();
-    setMealsByIngredient(data.meals);
+    setMeals(data.meals);
   };
 
   const getMealsByCategory = async (category) => {
@@ -45,15 +53,14 @@ const useMeals = () => {
     const data = await response.json();
     setMealsDetails(data.meals);
   };
-  return { getMeals,
+
+  return { getMealsByName,
     getMealsByFirstLetter,
     getMealsByIngredient,
     getMealsCategory,
     getMealsByCategory,
     getMealsDetails,
     meals,
-    mealsFirstLetter,
-    mealsByIngredient,
     mealsCategory,
     mealsDetails,
   };

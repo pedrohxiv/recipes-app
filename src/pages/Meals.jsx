@@ -1,20 +1,20 @@
-import React, { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { RecipeContext } from '../context/RecipeContext';
-import CardRecipe from './CardRecipe';
-import CategoryFilter from './CategoryFilter';
-import Footer from './Footer';
-import Header from './Header';
+import { useHistory, useLocation } from 'react-router-dom';
+import useMeals from '../hooks/useMeals';
+import CardRecipe from '../components/CardRecipe';
+import CategoryFilter from '../components/CategoryFilter';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function Meals() {
-  const { getMeals, meals } = useContext(RecipeContext);
+  const { meals } = useMeals();
   const { pathname } = useLocation();
-  useEffect(() => {
-    if (!meals && pathname === '/meals') { getMeals(); }
-  }, [meals, getMeals, pathname]);
+  const history = useHistory();
 
   if (pathname !== '/meals') return;
 
+  if (meals && meals.length === 1) {
+    history.push(`/meals/${meals[0].idMeal}`);
+  }
   return (
     <div>
       <Header title="Meals" />

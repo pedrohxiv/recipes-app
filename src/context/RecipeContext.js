@@ -1,46 +1,62 @@
-import { createContext, useMemo } from 'react';
-import useDrinks from '../hooks/useDrinks';
-import useMeals from '../hooks/useMeals';
+import { createContext, useMemo, useState } from 'react';
 
 export const RecipeContext = createContext();
 
 export function RecipeProvider({ children }) {
-  const { getMeals, getMealsByFirstLetter, getMealsByIngredient, getMealsCategory,
-    getMealsByCategory, getMealsDetails, meals, mealsFirstLetter, mealsByIngredient,
-    mealsCategory, mealsDetails } = useMeals();
+  const [meals, setMeals] = useState(null);
+  const [mealsCategory, setMealsCategory] = useState(null);
+  const [mealsDetails, setMealsDetails] = useState(null);
 
-  const { getDrinks, getDrinksByFirstLetter, getDrinksByCategory, getDrinksDetails,
-    getDrinksByIngredient, getDrinksCategory, drinks, drinksFirstLetter,
-    drinksByIngredient, drinksCategory, drinksDetails } = useDrinks();
+  const [drinks, setDrinks] = useState(null);
+  const [drinksFirstLetter, setDrinksFirstLetter] = useState(null);
+  const [drinksByIngredient, setDrinksByIngredient] = useState(null);
+  const [drinksCategory, setDrinksCategory] = useState(null);
+  const [drinksDetails, setDrinksDetails] = useState(null);
 
-  const values = useMemo(() => ({ getMeals,
-    getMealsByFirstLetter,
-    getMealsByIngredient,
-    getMealsCategory,
-    getMealsByCategory,
-    getMealsDetails,
+  const [filter, setFilter] = useState({
+    search: '',
+    radioFilter: '',
+  });
+
+  const values = useMemo(() => ({
     meals,
-    mealsFirstLetter,
-    mealsByIngredient,
     mealsCategory,
     mealsDetails,
-    getDrinks,
-    getDrinksByFirstLetter,
-    getDrinksByCategory,
-    getDrinksDetails,
-    getDrinksByIngredient,
-    getDrinksCategory,
+    setMeals,
+    setMealsCategory,
+    setMealsDetails,
     drinks,
     drinksFirstLetter,
     drinksByIngredient,
     drinksCategory,
     drinksDetails,
-  }), [getMeals, getMealsByFirstLetter, getMealsByIngredient, getMealsCategory,
-    getMealsByCategory, getMealsDetails, meals, mealsFirstLetter,
-    mealsByIngredient, mealsCategory, mealsDetails, getDrinks,
-    getDrinksByFirstLetter, getDrinksByCategory, getDrinksDetails, getDrinksByIngredient,
-    getDrinksCategory, drinks, drinksFirstLetter, drinksByIngredient,
-    drinksCategory, drinksDetails]);
+    setDrinks,
+    setDrinksFirstLetter,
+    setDrinksByIngredient,
+    setDrinksCategory,
+    setDrinksDetails,
+    filter,
+    setFilter,
+  }), [
+    meals,
+    mealsCategory,
+    mealsDetails,
+    setMeals,
+    setMealsCategory,
+    setMealsDetails,
+    drinks,
+    drinksFirstLetter,
+    drinksByIngredient,
+    drinksCategory,
+    drinksDetails,
+    setDrinks,
+    setDrinksFirstLetter,
+    setDrinksByIngredient,
+    setDrinksCategory,
+    setDrinksDetails,
+    filter,
+    setFilter,
+  ]);
 
   return (
     <RecipeContext.Provider value={ values }>
